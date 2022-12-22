@@ -1,16 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My app</title>
+  <style>
+    .grid-cont {
+      display: flex;
+      justify-content: space-between;
+      margin-inline: 3rem;
+      margin-top: 1rem;
+    }
+
+    .grid-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 0.5rem;
+      width: 30%;
+    }
+
+    .success {
+      background-color: green;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .failure {
+      background-color: red;
+      color: white;
+      border-radius: 5px;
+    }
+  </style>
 </head>
+
+
 <body>
   <ul>
-    {% for student in students %}
-      <li>{{ student['first_name'] }} {{ student['last_name'] }} - ({{ student['placed_university'] }})</li>
+    {% for student in accepted_students %}
+    <li class="grid-cont">
+      <div class="grid-item">
+        {{ student['first_name'] }} {{ student['last_name'] }}
+      </div>
+      <div class="grid-item">
+        {{student['total_points']}}
+      </div>
+      <div class="grid-item success">
+        {{student['placed_university']}}
+      </div>
+    </li>
+
+    {% endfor %}
+  </ul>
+  <ul>
+    {% for student in rejected_students %}
+    <li class="grid-cont">
+      <div class="grid-item">
+        {{ student['first_name'] }} {{ student['last_name'] }}
+      </div>
+      <div class="grid-item">
+        {{student['total_points']}}
+      </div>
+      <div class="grid-item failure">
+        not placed
+      </div>
+    </li>
     {% endfor %}
   </ul>
 </body>
+
 </html>

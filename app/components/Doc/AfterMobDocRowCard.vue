@@ -38,9 +38,6 @@ async function downloadUploadedFile(type: string) {
     downloading_cte.value = false
     if (type == "tran")
         downloading_tran.value = false
-
-
-
 }
 
 const uploaded_doc: Ref<File | undefined> = ref()

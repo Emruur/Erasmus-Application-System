@@ -36,11 +36,7 @@ class Student:
             "placement": self.placed_university,
             "points": self.total_points
         }
-
-
-
-
-
+        
 @dataclass
 class University:
     name: str
@@ -67,6 +63,11 @@ class DB_INIT:
 
     def insertPlacement(self):
         for student in self.students:
+            user = self.supabase.auth.sign_up(email=student.first_name + "." + student.last_name + "@ug.bilkent.com", password=1234567, options= {
+                'role': "OutgoingStudent",
+                'userId': student.student_id
+            })
+            auth_id= user.id
             data = {
                 'hasSubmittedPa': False,
                 'preApprovalFormId': -1,
@@ -89,6 +90,9 @@ class DB_INIT:
                 "phone": -1,
                 "bilkent_id": student.student_id}
             self.supabase.table('OutgoingStudent').insert(data).execute()
+        
+        for uni in self.universities:
+            self.supabase.table('University').update({"currentStudentNumber": len(uni.placed_students)}).eq("name", uni.name).execute()
 
     def place(self) -> tuple[list[Student],list[University]]:
         breakpt1 = False
@@ -128,7 +132,7 @@ class DB_INIT:
 
         filename = 'proper.csv'
 
-        with open(filename, 'r',encoding='utf-8',errors='ignore') as csvfile:
+        with open(filename, 'r',encoding = "ISO-8859-1") as csvfile:
             csvreader = csv.reader(csvfile, delimiter=";")
             fields = next(csvreader)
 

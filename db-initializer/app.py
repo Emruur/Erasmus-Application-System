@@ -5,7 +5,6 @@ import json
 from flask import request
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
-import xlrd 
 import csv
 import pandas as pd
 
@@ -14,7 +13,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def index():
-
     try:
         f = request.files['file']
         f.save("proper.csv")
@@ -38,9 +36,14 @@ def index():
     students_json= students_json
     universities_json= universities_json
 
+    db_init.resetPlacement()
+    db_init.insertPlacement()
+
+    accepted_students= [s for s in students if s.placed_university != ""]
+    rejected_students= [s for s in students if s.placed_university == ""]
 
 
-    return render_template('index.html', students=students)
+    return render_template('index.html', accepted_students=accepted_students, rejected_students= rejected_students )
   
 
 
