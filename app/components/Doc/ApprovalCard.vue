@@ -108,7 +108,7 @@ function handleFileChange(e: Event) {
                 </button>
             </div>
             <div class="col border border-secondary d-flex align-items-center">
-                <input type="file" name="" id="" class="form-control" @change="handleFileChange">
+                <input type="file" name="" id=""  accept= ".pdf" class="form-control" @change="handleFileChange">
             </div>
             <div class="col border border-secondary d-flex align-items-center justify-content-center p-1">
                 <div class="d-flex">
