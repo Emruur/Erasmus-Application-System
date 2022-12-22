@@ -156,7 +156,7 @@ export function useUniversity() {
         const { data, error } = await client
             .from("StudentUniversityJoin")
             .select("student_id")
-            .eq("name", name);
+            .eq("uni_name", name);
         if (error) {
             console.error("Error getting current student number: ", error);
         }
@@ -164,13 +164,15 @@ export function useUniversity() {
     }
 
     async function placeStudent(ids:number[], u:string): Promise<boolean>{
+        console.log("PLACE STUDENT", ids)
         var stds:Student[] = [];
         for(var ind = 0; ind< ids.length; ind++){
             const { data, error } = await client
             .from('OutgoingStudent')
-            .select("")
-            .eq("bilkent_id", ids[ind])
-            stds.push(await getProfileById(ids[ind], "OutgoingStudent") as OutgoingStudent)
+            .select()
+            .eq("bilkent_id", ids[ind].student_id)
+            console.log("id: ", data, "type: ", typeof ids[ind])
+            stds.push(await getProfileById(ids[ind].student_id, "OutgoingStudent") as OutgoingStudent)
         }
 
         var cgpa = 0;
