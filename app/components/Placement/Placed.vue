@@ -31,7 +31,7 @@
 import OutgoingStudent from '~~/models/OutgoingStudent';
 
 const { rejectStudent } = useUser()
-const { updateQuota, getWaitingStudentIdsByUniversity } = useUniversity()
+const { updateQuota, getWaitingStudentIdsByUniversity, placeStudent, addStudentToUni } = useUniversity()
 const rejecting= ref(false)
 
 const props = defineProps<{
@@ -47,5 +47,7 @@ async function reject(){
     window.location.reload()
     rejecting.value= false
     var students: number[] = await getWaitingStudentIdsByUniversity(uni_name) as number[]
+    await placeStudent(students, uni_name)
+    await addStudentToUni(uni_name)
 }
 </script>

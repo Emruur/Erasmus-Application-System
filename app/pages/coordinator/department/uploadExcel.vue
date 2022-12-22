@@ -1,6 +1,6 @@
 <template>
     <NavbarDepartmentCoordinator active="Documents" />
-    <form enctype="multipart/form-data" action="http://127.0.0.1:5000" method="POST">
+    <form enctype="multipart/form-data" action="http://139.179.224.95:5000" method="POST">
         <input id="file" type="file" name="file" class="form-control"/>
         <button class="btn btn-primary" type="submit" ><IconsUpload/></button>
     </form>
