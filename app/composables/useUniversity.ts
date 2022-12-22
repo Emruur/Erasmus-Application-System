@@ -126,6 +126,21 @@ export function useUniversity() {
         return null;
     }
 
+    async function getWaitingStudentIdsByUniversity(name:string): Promise<number[]>{
+        const { data, error } = await client
+            .from("StudentUniversityJoin")
+            .select("student_id")
+            .eq("name", name);
+        if (error) {
+            console.error("Error getting current student number: ", error);
+        }
+        return data as unknown as number[];
+    }
+
+    async function placeStudent(ids:number[]){
+        
+    }
+
     async function getUniversityNameById(id: number): Promise<string>{
         const { data, error } = await client
             .from("University")
@@ -139,5 +154,5 @@ export function useUniversity() {
             return data.name
         return ""
     }
-    return {getUniversities, sendToWaitlist, getUniversitiesWaitlist, updateQuota, getUniversityNameById, getCurrentStudentNumberAndQuota};
+    return {getUniversities, sendToWaitlist, getUniversitiesWaitlist, updateQuota, getUniversityNameById, getCurrentStudentNumberAndQuota, getWaitingStudentIdsByUniversity};
 }
