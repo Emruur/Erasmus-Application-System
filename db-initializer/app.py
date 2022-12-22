@@ -5,7 +5,6 @@ import json
 from flask import request
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
-import xlrd 
 import csv
 import pandas as pd
 

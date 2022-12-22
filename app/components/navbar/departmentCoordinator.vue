@@ -21,11 +21,11 @@ const links: LinkType[] = [
         link: "/coordinator/department/faq",
         active: props.active == "FAQ"
     },
-    //{
-      //  name: "Placements",
-        //link: "/coordinator/department/placements",
-        //active: props.active == "Placements"
-    //},
+    {
+        name: "Placements",
+        link: "/coordinator/department/uploadExcel",
+        active: props.active == "Placements"
+    },
     {
         name: "Check Courses",
         link: "/coordinator/department/checkCourses",
