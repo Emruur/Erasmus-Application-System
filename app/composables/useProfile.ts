@@ -17,7 +17,7 @@ export function useProfile() {
             .eq("bilkent_id", id);
             
         if (error){
-            console.error("Error getting Instructor Profile: ", error)
+            console.error("Error getting profile: ", error)
         }
         
         if(data){

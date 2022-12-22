@@ -44,10 +44,13 @@ async function reject(){
     var uni_name:string = props.user.getPlaced_university() as string
     console.log(await rejectStudent(props.user.getId()))
     console.log(await updateQuota(uni_name))
-    window.location.reload()
     rejecting.value= false
     var students: number[] = await getWaitingStudentIdsByUniversity(uni_name) as number[]
+    console.log("birinci")
     await placeStudent(students, uni_name)
+    console.log("ikinci")
     await addStudentToUni(uni_name)
+    console.log("ücü")
+    window.location.reload()
 }
 </script>
