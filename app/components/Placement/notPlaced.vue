@@ -47,7 +47,7 @@ async function getNames(){
 }
 
 async function reloadPage(){
-    //window.location.reload()
+    window.location.reload()
 }
 
 onMounted(() => {
