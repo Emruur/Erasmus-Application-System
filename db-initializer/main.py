@@ -89,6 +89,9 @@ class DB_INIT:
                 "phone": -1,
                 "bilkent_id": student.student_id}
             self.supabase.table('OutgoingStudent').insert(data).execute()
+        
+        for uni in self.universities:
+            self.supabase.table('University').update({"currentStudentNumber": len(uni.placed_students)}).eq("name", uni.name).execute()
 
     def place(self) -> tuple[list[Student],list[University]]:
         breakpt1 = False
