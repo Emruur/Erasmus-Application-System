@@ -138,7 +138,22 @@ export function useUniversity() {
     }
 
     async function placeStudent(ids:number[]){
-        
+        var indexStudent = 0;
+        for(var ind = 0; ind< ids.length; ind++){
+            const { data, error } = await client
+            .from('OutgoingStudent')
+            .select("")
+            .eq("bilkent_id", ids[ind])
+
+        }
+
+
+        var least = 0
+        for(var i of ids){
+            if(i > least){
+                least = i
+            }
+        }
     }
 
     async function getUniversityNameById(id: number): Promise<string>{
