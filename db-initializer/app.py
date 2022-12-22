@@ -38,9 +38,11 @@ def index():
     students_json= students_json
     universities_json= universities_json
 
+    accepted_students= [s for s in students if s.placed_university != ""]
+    rejected_students= [s for s in students if s.placed_university == ""]
 
 
-    return render_template('index.html', students=students)
+    return render_template('index.html', accepted_students=accepted_students, rejected_students= rejected_students )
   
 
 
