@@ -30,7 +30,7 @@ export function useStorage() {
         if (data) {
             const a = document.createElement("a");
             a.href = URL.createObjectURL(data);
-            a.setAttribute("download", from);
+            a.setAttribute("download", path);
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
