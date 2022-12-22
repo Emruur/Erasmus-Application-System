@@ -5,6 +5,7 @@ import University from "~~/models/University";
 export function useUniversity() {
     const client = useSupabaseClient();
     const{getProfileById} = useProfile()
+    const{removeFromWaitlist} = useUser()
 
     async function getUniversities(): Promise<University[]> {
         const { data, error } = await client
@@ -37,6 +38,11 @@ export function useUniversity() {
                 .from("StudentUniversityJoin")
                 .insert(placement as never)
                 .select()
+
+            if(await addStudentToUni(uniName)){
+                await placeStudent(await getWaitingStudentIdsByUniversity(uniName), uniName)
+            }
+            
             if(error){
                 console.error("Error adding placement: ", error)
                 return false
@@ -94,22 +100,29 @@ export function useUniversity() {
 
     async function addStudentToUni(name: string): Promise<boolean>{
 
-        var q = await getCurrentStudentNumber(name)
-        //console.log("q is ", q)
-        if(q != -1){
-            const uni = {
-                currentStudentNumber: q+1,
-            };
-            const { error } = await client
-            .from("University")
-            .update(uni as never)
-            .eq('name', name);
+        var composite = await getCurrentStudentNumberAndQuota(name)
+        var q = composite?.student_number
+        var quota = composite?.quota
+        console.log("q is: ", q, "quota is: ", quota)
+        if(q!= undefined && quota!= undefined){
+            //console.log("q is ", q)
+            if(q < quota){
+                const uni = {
+                    currentStudentNumber: q+1,
+                };
+                const { error } = await client
+                .from("University")
+                .update(uni as never)
+                .eq('name', name);
 
-            if(error){
-                console.error("Error updating quota: ", error);
-                return false;
+                if(error){
+                    console.error("Error updating quota: ", error);
+                    return false;
+                }
+                return true;
+            } else{
+                console.log("Student capacity is full")
             }
-            return true;
         }
        
         return false;
@@ -193,6 +206,7 @@ export function useUniversity() {
             .from("OutgoingStudent")
             .update(student as never)
             .eq('bilkent_id', stds[indexBiggest].getId());
+        console.log("remove from : ", await removeFromWaitlist(stds[indexBiggest].getId()))
         return true
     }
 
