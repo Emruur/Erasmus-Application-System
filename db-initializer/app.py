@@ -37,8 +37,8 @@ def index():
     students_json= students_json
     universities_json= universities_json
 
-    #db_init.resetPlacement()
-    #db_init.insertPlacement()
+    db_init.resetPlacement()
+    db_init.insertPlacement()
 
     accepted_students= [s for s in students if s.placed_university != ""]
     rejected_students= [s for s in students if s.placed_university == ""]
