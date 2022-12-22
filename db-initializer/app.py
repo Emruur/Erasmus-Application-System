@@ -14,7 +14,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def index():
-
     try:
         f = request.files['file']
         f.save("proper.csv")
@@ -37,6 +36,9 @@ def index():
 
     students_json= students_json
     universities_json= universities_json
+
+    #db_init.resetPlacement()
+    #db_init.insertPlacement()
 
     accepted_students= [s for s in students if s.placed_university != ""]
     rejected_students= [s for s in students if s.placed_university == ""]
