@@ -128,7 +128,7 @@ class DB_INIT:
 
         filename = 'proper.csv'
 
-        with open(filename, 'r', errors='ignore') as csvfile:
+        with open(filename, 'r',encoding = "ISO-8859-1") as csvfile:
             csvreader = csv.reader(csvfile, delimiter=";")
             fields = next(csvreader)
 
