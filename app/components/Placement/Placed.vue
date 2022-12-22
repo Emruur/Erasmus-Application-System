@@ -51,6 +51,6 @@ async function reject(){
     console.log("ikinci")
     await addStudentToUni(uni_name)
     console.log("ücü")
-    //window.location.reload()
+    window.location.reload()
 }
 </script>
