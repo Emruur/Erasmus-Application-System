@@ -1,7 +1,10 @@
+import OutgoingStudent from '~~/models/OutgoingStudent';
+import Student from "~~/models/Student";
 import University from "~~/models/University";
 
 export function useUniversity() {
     const client = useSupabaseClient();
+    const{getProfileById} = useProfile()
 
     async function getUniversities(): Promise<University[]> {
         const { data, error } = await client
@@ -88,6 +91,29 @@ export function useUniversity() {
        
         return false;
     }
+
+    async function addStudentToUni(name: string): Promise<boolean>{
+
+        var q = await getCurrentStudentNumber(name)
+        //console.log("q is ", q)
+        if(q != -1){
+            const uni = {
+                currentStudentNumber: q+1,
+            };
+            const { error } = await client
+            .from("University")
+            .update(uni as never)
+            .eq('name', name);
+
+            if(error){
+                console.error("Error updating quota: ", error);
+                return false;
+            }
+            return true;
+        }
+       
+        return false;
+    }
     
     async function getCurrentStudentNumber(name:string): Promise<number>{
         console.log("NAME: ", name)
@@ -137,23 +163,35 @@ export function useUniversity() {
         return data as unknown as number[];
     }
 
-    async function placeStudent(ids:number[]){
-        var indexStudent = 0;
+    async function placeStudent(ids:number[], u:string): Promise<boolean>{
+        var stds:Student[] = [];
         for(var ind = 0; ind< ids.length; ind++){
             const { data, error } = await client
             .from('OutgoingStudent')
             .select("")
             .eq("bilkent_id", ids[ind])
-
+            stds.push(await getProfileById(ids[ind], "OutgoingStudent") as OutgoingStudent)
         }
 
-
-        var least = 0
-        for(var i of ids){
-            if(i > least){
-                least = i
+        var cgpa = 0;
+        var indexBiggest = 0;
+        for(var i = 0; i < stds.length; i++){
+            if(stds[i].getCgpa() > cgpa){
+                cgpa = stds[i].getCgpa()
+                indexBiggest = i
             }
         }
+
+        const student = {
+            isPlaced : true,
+            placed_university : u
+        };
+
+        const { error} = await client
+            .from("OutgoingStudent")
+            .update(student as never)
+            .eq('bilkent_id', stds[indexBiggest].getId());
+        return true
     }
 
     async function getUniversityNameById(id: number): Promise<string>{
@@ -169,5 +207,6 @@ export function useUniversity() {
             return data.name
         return ""
     }
-    return {getUniversities, sendToWaitlist, getUniversitiesWaitlist, updateQuota, getUniversityNameById, getCurrentStudentNumberAndQuota, getWaitingStudentIdsByUniversity};
+    return {getUniversities, sendToWaitlist, getUniversitiesWaitlist, updateQuota, placeStudent, addStudentToUni,
+         getUniversityNameById, getCurrentStudentNumberAndQuota, getWaitingStudentIdsByUniversity};
 }
