@@ -117,7 +117,7 @@ function handleFileChange(e: Event) {
         <div class="row text-center p-3">
             <div class="col ">
                 <div v-if="status != 'not uploaded'" class="d-flex">
-                    <input type="file" class="form-control" @change="handleFileChange($event)" />
+                    <input type="file" class="form-control"  accept= ".pdf" @change="handleFileChange($event)" />
                     <button class="btn btn-primary" @click="handleFileUpload" :class="{disabled: fileUploaded==undefined}">
                         <IconsUpload v-if="!uploading"/>
                         <UtilSpinner v-else/>
