@@ -1,30 +1,14 @@
 <template>
     <NavbarDepartmentCoordinator active="Documents" />
-    <form enctype="multipart/form-data" action="http://139.179.224.95:5000" method="POST">
+    <form enctype="multipart/form-data" action="http://127.0.0.1:5000" method="POST" class="h-20 d-flex p-5">
         <input id="file" type="file" name="file" class="form-control"/>
-        <button class="btn btn-primary" type="submit" ><IconsUpload/></button>
+        <button class="btn btn-primary" type="submit" @click="authing= true"><IconsUpload v-if="!authing" /> <UtilSpinner v-else/></button>
     </form>
-    <button class="btn btn-primary" v-if="!authing" @click="authUsers">authenticate new users</button>
-    <button class="btn btn-primary" v-else disabledcd >authenticate new users</button>
-    
-
 </template>
 
 <script setup lang="ts">
-const fileUploaded = ref()
-const {initUserAuth}= useSignup()
-const students = ref()
-const universities = ref()
 
 const authing= ref(false)
-
-async function authUsers() {
-    authing.value= true
-    await initUserAuth()
-    authing.value= false
-    alert("All new users authenticated")
-}
-
 
 </script>
 

@@ -36,11 +36,7 @@ class Student:
             "placement": self.placed_university,
             "points": self.total_points
         }
-
-
-
-
-
+        
 @dataclass
 class University:
     name: str
@@ -67,6 +63,11 @@ class DB_INIT:
 
     def insertPlacement(self):
         for student in self.students:
+            session = self.supabase.auth.sign_up(email=student.first_name + "." + student.last_name + "@ug.bilkent.com", password=str(1234567), data= {
+                'role': 'OutgoingStudent',
+                'userId': student.student_id
+            })
+            auth_id= session.user.id
             data = {
                 'hasSubmittedPa': False,
                 'preApprovalFormId': -1,
@@ -87,7 +88,8 @@ class DB_INIT:
                 "surname": student.last_name,
                 "email": student.first_name + "." + student.last_name + "@ug.bilkent.com",
                 "phone": -1,
-                "bilkent_id": student.student_id}
+                "bilkent_id": student.student_id,
+                "authId": str(auth_id)}
             self.supabase.table('OutgoingStudent').insert(data).execute()
         
         for uni in self.universities:

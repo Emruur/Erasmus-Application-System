@@ -38,9 +38,6 @@ async function downloadUploadedFile(type: string) {
     downloading_cte.value = false
     if (type == "tran")
         downloading_tran.value = false
-
-
-
 }
 
 const uploaded_doc: Ref<File | undefined> = ref()
@@ -144,7 +141,7 @@ onMounted(async() => {
                 </button>
             </div>
             <div class="col-3 d-flex align-items-center justify-content-center">
-                <input type="file" name="" id="" class="form-control" @change="handleFileChange($event)">
+                <input type="file" name="" id="" class="form-control" accept= ".pdf" @change="handleFileChange($event)">
                 <button class="btn btn-primary" :class="{ disabled: uploaded_doc == undefined }">
                     <IconsUpload v-if="!uploading" @click="handleFileUpload" />
                     <UtilSpinner v-else />

@@ -35,7 +35,7 @@
                     </div>
                     <div class="col">
                         <label for="syllabus" class="form-label"> Syllabus:</label>
-                        <input type="file" name="" id="syllabus" class="form-control" @change="handleFileChange">
+                        <input type="file" name="" id="syllabus" accept= ".pdf" class="form-control" @change="handleFileChange">
                     </div>
                 </div>
 
@@ -211,6 +211,7 @@ function handleFileChange(e: Event) {
             if (target.files && target.files[0]) {
                 if (target.files[0].name.split(".").pop() != 'pdf'){
                     alert('INVALID DOCUMENT PLEASE UPLOAD A PDF FILE' )
+                    return
                 }
                 else{
                     fileUploaded.value = target.files[0];

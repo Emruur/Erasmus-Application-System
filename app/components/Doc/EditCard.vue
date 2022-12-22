@@ -147,7 +147,7 @@ function handleFileChange(e: Event) {
                 <div class="col d-flex justify-content-center align-items-center ">
                     <div class="d-flex justify-content-center align-items-center flex-column">
                         <h5>{{ status == 'not uploaded' ? "Upload:" : "Upload new file:" }} </h5>
-                        <div class="d-flex"><input type="file" class="mt-1 form-control"
+                        <div class="d-flex"><input type="file"  accept= ".pdf" class="mt-1 form-control"
                                 @change="handleFileChange($event)" />
                             <button class="btn btn-primary mt-1" @click="handleFileUpload">
                                 <IconsUpload v-if="!uploading" />
