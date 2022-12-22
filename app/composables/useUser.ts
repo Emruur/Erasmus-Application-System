@@ -18,6 +18,18 @@ export function useUser() {
         }
         return true;
     }
+
+    async function removeFromWaitlist(id: number): Promise<boolean>{
+        const { error } = await client
+            .from("StudentUniversityJoin")
+            .delete()
+            .eq("student_id", id)
+        if(error){
+            console.error("Error removing user from waitlist: ", error);
+            return false;
+        }
+        return true;
+    }
     
-    return { rejectStudent };
+    return { rejectStudent, removeFromWaitlist };
 }
