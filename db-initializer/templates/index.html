@@ -7,14 +7,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My app</title>
   <style>
-    .grid-cont{
-      display: inline-grid;
+    .grid-cont {
+      display: flex;
+      justify-content: space-between;
+      margin-inline: 3rem;
+      margin-top: 1rem;
     }
-    .success{
+
+    .grid-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 0.5rem;
+      width: 30%;
+    }
+
+    .success {
       background-color: green;
+      color: white;
+      border-radius: 5px;
     }
-    .failure{
+
+    .failure {
       background-color: red;
+      color: white;
+      border-radius: 5px;
     }
   </style>
 </head>
