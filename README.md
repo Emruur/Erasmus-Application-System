@@ -6,7 +6,7 @@ This application will be functional after the Erasmus applications are made thro
  
 When the nomination time comes, the department coordinators and Yelda Hanım (administrative) will nominate the students to the partner universities. The students will be sent a registration form by these universities through email, and in the meantime, they will be expected to fill out the pre-approval form on the Bilkent Erasmus. If there’s a must-course the students are planning to take at the partner institution, they will have to upload this course’s syllabus to ErasmusBilkent and direct it to the instructor of that course. The instructor will accept or reject the course as an equal to the one at the home institution. If the must-course at a given institution has already been taken by another student in previous years, the course will already be on the previously-taken courses database, so the student won’t have to have the course reapproved.
  
-Considering the description of ErasmusBilkent above, key features of this software include:
+Key features of this software include:
  
 - Different rights, responsibilities and available features for different type of users
 - Digitalised communication between parties
